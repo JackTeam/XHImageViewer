@@ -19,6 +19,7 @@
 		AB76C3CC18B25A5C00A38037 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB76C3B418B25A5C00A38037 /* UIKit.framework */; };
 		AB76C3D418B25A5C00A38037 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB76C3D218B25A5C00A38037 /* InfoPlist.strings */; };
 		AB76C3D618B25A5C00A38037 /* XHImageViewerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB76C3D518B25A5C00A38037 /* XHImageViewerTests.m */; };
+		AB76C3E218B25ACC00A38037 /* XHImageViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = AB76C3E118B25ACC00A38037 /* XHImageViewer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,8 @@
 		AB76C3D118B25A5C00A38037 /* XHImageViewerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "XHImageViewerTests-Info.plist"; sourceTree = "<group>"; };
 		AB76C3D318B25A5C00A38037 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AB76C3D518B25A5C00A38037 /* XHImageViewerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XHImageViewerTests.m; sourceTree = "<group>"; };
+		AB76C3E018B25ACC00A38037 /* XHImageViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHImageViewer.h; sourceTree = "<group>"; };
+		AB76C3E118B25ACC00A38037 /* XHImageViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHImageViewer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +80,7 @@
 		AB76C3A418B25A5C00A38037 = {
 			isa = PBXGroup;
 			children = (
+				AB76C3DF18B25ABB00A38037 /* Source */,
 				AB76C3B618B25A5C00A38037 /* XHImageViewer */,
 				AB76C3CF18B25A5C00A38037 /* XHImageViewerTests */,
 				AB76C3AF18B25A5C00A38037 /* Frameworks */,
@@ -142,6 +146,16 @@
 				AB76C3D218B25A5C00A38037 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AB76C3DF18B25ABB00A38037 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				AB76C3E018B25ACC00A38037 /* XHImageViewer.h */,
+				AB76C3E118B25ACC00A38037 /* XHImageViewer.m */,
+			);
+			name = Source;
+			path = ../Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB76C3C118B25A5C00A38037 /* AppDelegate.m in Sources */,
+				AB76C3E218B25ACC00A38037 /* XHImageViewer.m in Sources */,
 				AB76C3BD18B25A5C00A38037 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -443,6 +458,7 @@
 				AB76C3DB18B25A5C00A38037 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AB76C3DC18B25A5C00A38037 /* Build configuration list for PBXNativeTarget "XHImageViewerTests" */ = {
 			isa = XCConfigurationList;
@@ -451,6 +467,7 @@
 				AB76C3DE18B25A5C00A38037 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
