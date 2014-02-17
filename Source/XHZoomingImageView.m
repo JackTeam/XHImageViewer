@@ -137,7 +137,6 @@
     CGFloat Rw = _scrollView.frame.size.width / self.imageView.frame.size.width;
     CGFloat Rh = _scrollView.frame.size.height / self.imageView.frame.size.height;
     
-    //CGFloat scale = [[UIScreen mainScreen] scale];
     CGFloat scale = 1;
     Rw = MAX(Rw, _imageView.image.size.width / (scale * _scrollView.frame.size.width));
     Rh = MAX(Rh, _imageView.image.size.height / (scale * _scrollView.frame.size.height));
