@@ -23,6 +23,10 @@
 		AB76C3E518B25B2400A38037 /* XHZoomingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB76C3E418B25B2400A38037 /* XHZoomingImageView.m */; };
 		AB76C3E818B25F6900A38037 /* XHViewState.m in Sources */ = {isa = PBXBuildFile; fileRef = AB76C3E718B25F6900A38037 /* XHViewState.m */; };
 		AB76C3FC18B2656200A38037 /* XHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB76C3FB18B2656200A38037 /* XHViewController.m */; };
+		AB76C40218B2668800A38037 /* 1_1280x800-1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AB76C3FE18B2668800A38037 /* 1_1280x800-1.jpeg */; };
+		AB76C40318B2668800A38037 /* 1_1280x800.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AB76C3FF18B2668800A38037 /* 1_1280x800.jpeg */; };
+		AB76C40418B2668800A38037 /* 4_1366x768.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AB76C40018B2668800A38037 /* 4_1366x768.jpeg */; };
+		AB76C40518B2668800A38037 /* 5_1280x800.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AB76C40118B2668800A38037 /* 5_1280x800.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +64,10 @@
 		AB76C3E718B25F6900A38037 /* XHViewState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHViewState.m; sourceTree = "<group>"; };
 		AB76C3FA18B2656200A38037 /* XHViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHViewController.h; sourceTree = "<group>"; };
 		AB76C3FB18B2656200A38037 /* XHViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHViewController.m; sourceTree = "<group>"; };
+		AB76C3FE18B2668800A38037 /* 1_1280x800-1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "1_1280x800-1.jpeg"; sourceTree = "<group>"; };
+		AB76C3FF18B2668800A38037 /* 1_1280x800.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1_1280x800.jpeg; sourceTree = "<group>"; };
+		AB76C40018B2668800A38037 /* 4_1366x768.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4_1366x768.jpeg; sourceTree = "<group>"; };
+		AB76C40118B2668800A38037 /* 5_1280x800.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5_1280x800.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +170,7 @@
 		AB76C3DF18B25ABB00A38037 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				AB76C3FD18B2668800A38037 /* Resources */,
 				AB76C3E018B25ACC00A38037 /* XHImageViewer.h */,
 				AB76C3E118B25ACC00A38037 /* XHImageViewer.m */,
 				AB76C3E618B25F6900A38037 /* XHViewState.h */,
@@ -171,6 +180,17 @@
 			);
 			name = Source;
 			path = ../Source;
+			sourceTree = "<group>";
+		};
+		AB76C3FD18B2668800A38037 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AB76C3FE18B2668800A38037 /* 1_1280x800-1.jpeg */,
+				AB76C3FF18B2668800A38037 /* 1_1280x800.jpeg */,
+				AB76C40018B2668800A38037 /* 4_1366x768.jpeg */,
+				AB76C40118B2668800A38037 /* 5_1280x800.jpeg */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -248,8 +268,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB76C40518B2668800A38037 /* 5_1280x800.jpeg in Resources */,
+				AB76C40218B2668800A38037 /* 1_1280x800-1.jpeg in Resources */,
 				AB76C3BB18B25A5C00A38037 /* InfoPlist.strings in Resources */,
+				AB76C40318B2668800A38037 /* 1_1280x800.jpeg in Resources */,
 				AB76C3C318B25A5C00A38037 /* Images.xcassets in Resources */,
+				AB76C40418B2668800A38037 /* 4_1366x768.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

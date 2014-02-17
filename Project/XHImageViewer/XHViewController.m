@@ -7,8 +7,11 @@
 //
 
 #import "XHViewController.h"
+#import "XHImageViewer.h"
 
-@interface XHViewController ()
+@interface XHViewController () <XHImageViewerDelegate> {
+    NSMutableArray *_imageViews;
+}
 
 @end
 
@@ -28,12 +31,50 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    _imageViews = [NSMutableArray array];
+    [_imageViews addObject:[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 160, 200)]];
+    [_imageViews addObject:[[UIImageView alloc] initWithFrame:CGRectMake(160, 0, 160, 150)]];
+    [_imageViews addObject:[[UIImageView alloc] initWithFrame:CGRectMake(160, 150, 160, 50)]];
+    [_imageViews addObject:[[UIImageView alloc] initWithFrame:CGRectMake(0, 200, 320, 100)]];
+    
+    for (UIImageView *imageView in _imageViews) {
+        NSInteger index = [_imageViews indexOfObject:imageView];
+        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle:)];
+        imageView.userInteractionEnabled = YES;
+        [imageView addGestureRecognizer:gesture];
+        
+        NSString *imageName = nil;
+        if (index == 0) {
+            imageName = @"1_1280x800-1.jpeg";
+        } else if (index == 1) {
+            imageName = @"1_1280x800.jpeg";
+        } else if (index == 2) {
+            imageName = @"4_1366x768.jpeg";
+        } else if (index == 3) {
+            imageName = @"5_1280x800.jpeg";
+        }
+        imageView.image = [UIImage imageNamed:imageName];
+        [self.view addSubview:imageView];
+    }
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)tapHandle:(UITapGestureRecognizer *)tap {
+    XHImageViewer *imageViewer = [[XHImageViewer alloc] init];
+    imageViewer.delegate = self;
+    [imageViewer showWithImageViews:_imageViews selectedView:(UIImageView *)tap.view];
+}
+
+#pragma mark - XHImageViewerDelegate
+
+- (void)imageViewer:(XHImageViewer *)imageViewer willDismissWithSelectedView:(UIImageView *)selectedView {
+    NSInteger index = [_imageViews indexOfObject:selectedView];
+    NSLog(@"index : %d", index);
 }
 
 @end
