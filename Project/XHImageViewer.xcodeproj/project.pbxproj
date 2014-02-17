@@ -21,6 +21,7 @@
 		AB76C3D618B25A5C00A38037 /* XHImageViewerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB76C3D518B25A5C00A38037 /* XHImageViewerTests.m */; };
 		AB76C3E218B25ACC00A38037 /* XHImageViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = AB76C3E118B25ACC00A38037 /* XHImageViewer.m */; };
 		AB76C3E518B25B2400A38037 /* XHZoomingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB76C3E418B25B2400A38037 /* XHZoomingImageView.m */; };
+		AB76C3E818B25F6900A38037 /* XHViewState.m in Sources */ = {isa = PBXBuildFile; fileRef = AB76C3E718B25F6900A38037 /* XHViewState.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		AB76C3E118B25ACC00A38037 /* XHImageViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHImageViewer.m; sourceTree = "<group>"; };
 		AB76C3E318B25B2400A38037 /* XHZoomingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHZoomingImageView.h; sourceTree = "<group>"; };
 		AB76C3E418B25B2400A38037 /* XHZoomingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHZoomingImageView.m; sourceTree = "<group>"; };
+		AB76C3E618B25F6900A38037 /* XHViewState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHViewState.h; sourceTree = "<group>"; };
+		AB76C3E718B25F6900A38037 /* XHViewState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHViewState.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +159,8 @@
 			children = (
 				AB76C3E018B25ACC00A38037 /* XHImageViewer.h */,
 				AB76C3E118B25ACC00A38037 /* XHImageViewer.m */,
+				AB76C3E618B25F6900A38037 /* XHViewState.h */,
+				AB76C3E718B25F6900A38037 /* XHViewState.m */,
 				AB76C3E318B25B2400A38037 /* XHZoomingImageView.h */,
 				AB76C3E418B25B2400A38037 /* XHZoomingImageView.m */,
 			);
@@ -260,6 +265,7 @@
 			files = (
 				AB76C3E518B25B2400A38037 /* XHZoomingImageView.m in Sources */,
 				AB76C3C118B25A5C00A38037 /* AppDelegate.m in Sources */,
+				AB76C3E818B25F6900A38037 /* XHViewState.m in Sources */,
 				AB76C3E218B25ACC00A38037 /* XHImageViewer.m in Sources */,
 				AB76C3BD18B25A5C00A38037 /* main.m in Sources */,
 			);
