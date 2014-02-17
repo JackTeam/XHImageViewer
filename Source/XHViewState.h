@@ -15,4 +15,7 @@
 @property (nonatomic, assign) BOOL userInteratctionEnabled;
 @property (nonatomic, assign) CGAffineTransform transform;
 
++ (XHViewState *)viewStateForView:(UIView *)view;
+- (void)setStateWithView:(UIView *)view;
+
 @end

@@ -10,22 +10,28 @@
 
 @implementation XHViewState
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
++ (XHViewState *)viewStateForView:(UIView *)view {
+    static NSMutableDictionary *dict = nil;
+    if(dict==nil){ dict = [NSMutableDictionary dictionary]; }
+    
+    XHViewState *state = dict[@(view.hash)];
+    if(state==nil){
+        state = [[self alloc] init];
+        dict[@(view.hash)] = state;
     }
-    return self;
+    return state;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+- (void)setStateWithView:(UIView *)view {
+    CGAffineTransform trans = view.transform;
+    view.transform = CGAffineTransformIdentity;
+    
+    self.superview = view.superview;
+    self.frame     = view.frame;
+    self.transform = trans;
+    self.userInteratctionEnabled = view.userInteractionEnabled;
+    
+    view.transform = trans;
 }
-*/
 
 @end
