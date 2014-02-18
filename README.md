@@ -14,7 +14,15 @@ imageViewer.delegate = self;
 
 _imageViews is mutiple imageViews(subClass UIImageView or UIImageView)
 imageView is user touch imageView to selectedImageView
+```
 
+Easy to use download web image form the open source.
+```objc
+#import "UIImageView+XHURLDownload.h"
+
+UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 160, 200)]
+[imageView setDefaultLoadingView];
+[imageView loadWithURL:[NSURL URLWithString:@"http://www.pailixiu.com/IMG_1388.JPG"]];
 ```
 
 ## Profile
