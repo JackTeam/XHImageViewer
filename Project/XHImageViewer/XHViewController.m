@@ -8,6 +8,8 @@
 
 #import "XHViewController.h"
 #import "XHImageViewer.h"
+#import "UIImageView+XHURLDownload.h"
+#import "URLStoreManager.h"
 
 @interface XHViewController () <XHImageViewerDelegate> {
     NSMutableArray *_imageViews;
@@ -43,17 +45,14 @@
         imageView.userInteractionEnabled = YES;
         [imageView addGestureRecognizer:gesture];
         
-        NSString *imageName = nil;
-        if (index == 0) {
-            imageName = @"1_1280x800-1.jpeg";
-        } else if (index == 1) {
-            imageName = @"1_1280x800.jpeg";
-        } else if (index == 2) {
-            imageName = @"4_1366x768.jpeg";
-        } else if (index == 3) {
-            imageName = @"5_1280x800.jpeg";
+        [imageView setDefaultLoadingView];
+        if (index) {
+            [imageView loadWithURL:[URLStoreManager getUrlWithIndex:index]];
+        } else {
+            imageView.image = [UIImage imageNamed:@"4_1366x768.jpeg"];
         }
-        imageView.image = [UIImage imageNamed:imageName];
+        
+        
         [self.view addSubview:imageView];
     }
 }
