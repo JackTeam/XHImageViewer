@@ -29,6 +29,7 @@
 		AB76C40518B2668800A38037 /* 5_1280x800.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AB76C40118B2668800A38037 /* 5_1280x800.jpeg */; };
 		AB8B65E718B37136001EAFA3 /* UIImageView+XHURLDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8B65E618B37136001EAFA3 /* UIImageView+XHURLDownload.m */; };
 		AB8B65EA18B374D1001EAFA3 /* URLStoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8B65E918B374D1001EAFA3 /* URLStoreManager.m */; };
+		AB8B65ED18B394C5001EAFA3 /* XHCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8B65EC18B394C5001EAFA3 /* XHCacheManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,8 @@
 		AB8B65E618B37136001EAFA3 /* UIImageView+XHURLDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+XHURLDownload.m"; sourceTree = "<group>"; };
 		AB8B65E818B374D1001EAFA3 /* URLStoreManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLStoreManager.h; sourceTree = "<group>"; };
 		AB8B65E918B374D1001EAFA3 /* URLStoreManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLStoreManager.m; sourceTree = "<group>"; };
+		AB8B65EB18B394C5001EAFA3 /* XHCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHCacheManager.h; sourceTree = "<group>"; };
+		AB8B65EC18B394C5001EAFA3 /* XHCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHCacheManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +190,8 @@
 				AB76C3E418B25B2400A38037 /* XHZoomingImageView.m */,
 				AB8B65E518B37136001EAFA3 /* UIImageView+XHURLDownload.h */,
 				AB8B65E618B37136001EAFA3 /* UIImageView+XHURLDownload.m */,
+				AB8B65EB18B394C5001EAFA3 /* XHCacheManager.h */,
+				AB8B65EC18B394C5001EAFA3 /* XHCacheManager.m */,
 			);
 			name = Source;
 			path = ../Source;
@@ -307,6 +312,7 @@
 				AB76C3FC18B2656200A38037 /* XHViewController.m in Sources */,
 				AB8B65E718B37136001EAFA3 /* UIImageView+XHURLDownload.m in Sources */,
 				AB76C3E818B25F6900A38037 /* XHViewState.m in Sources */,
+				AB8B65ED18B394C5001EAFA3 /* XHCacheManager.m in Sources */,
 				AB76C3E218B25ACC00A38037 /* XHImageViewer.m in Sources */,
 				AB76C3BD18B25A5C00A38037 /* main.m in Sources */,
 				AB8B65EA18B374D1001EAFA3 /* URLStoreManager.m in Sources */,
