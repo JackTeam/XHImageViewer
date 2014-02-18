@@ -11,8 +11,8 @@
 #import <objc/runtime.h>
 
 const char* const kXHURLPropertyKey   = "XHURLDownloadURLPropertyKey";
-const char* const kCLLoadingStateKey  = "XHURLDownloadLoadingStateKey";
-const char* const kCLLoadingViewKey   = "XHURLDownloadLoadingViewKey";
+const char* const kXHLoadingStateKey  = "XHURLDownloadLoadingStateKey";
+const char* const kXHLoadingViewKey   = "XHURLDownloadLoadingViewKey";
 
 @implementation UIImageView (XHURLDownload)
 
@@ -76,21 +76,21 @@ const char* const kCLLoadingViewKey   = "XHURLDownloadLoadingViewKey";
 }
 
 - (UIImageViewURLDownloadState)loadingState {
-    return (NSUInteger)([objc_getAssociatedObject(self, kCLLoadingStateKey) integerValue]);
+    return (NSUInteger)([objc_getAssociatedObject(self, kXHLoadingStateKey) integerValue]);
 }
 
 - (void)setLoadingState:(UIImageViewURLDownloadState)loadingState {
-    objc_setAssociatedObject(self, kCLLoadingStateKey, @(loadingState), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, kXHLoadingStateKey, @(loadingState), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (UIView *)loadingView {
-    return objc_getAssociatedObject(self, kCLLoadingViewKey);
+    return objc_getAssociatedObject(self, kXHLoadingViewKey);
 }
 
 - (void)setLoadingView:(UIView *)loadingView {
     [self.loadingView removeFromSuperview];
     
-    objc_setAssociatedObject(self, kCLLoadingViewKey, loadingView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, kXHLoadingViewKey, loadingView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     loadingView.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
     loadingView.alpha  = 0;
@@ -136,7 +136,7 @@ const char* const kCLLoadingViewKey   = "XHURLDownloadLoadingViewKey";
 + (NSOperationQueue *)downloadQueue {
     static NSOperationQueue *_sharedQueue = nil;
     
-    if(_sharedQueue==nil) {
+    if(_sharedQueue == nil) {
         _sharedQueue = [NSOperationQueue new];
         [_sharedQueue setMaxConcurrentOperationCount:3];
     }
@@ -152,7 +152,7 @@ const char* const kCLLoadingViewKey   = "XHURLDownloadLoadingViewKey";
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[self downloadQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               if(completion){
+                               if(completion) {
                                    completion(url, data, connectionError);
                                }
                            }
