@@ -16,9 +16,6 @@ const char* const kXHURLPropertyKey   = "XHURLDownloadURLPropertyKey";
 const char* const kXHLoadingStateKey  = "XHURLDownloadLoadingStateKey";
 const char* const kXHLoadingViewKey   = "XHURLDownloadLoadingViewKey";
 
-const char* const kXHCachingKey   = "XHCachingKey";
-
-
 @implementation UIImageView (XHURLDownload)
 
 + (id)imageViewWithURL:(NSURL*)url autoLoading:(BOOL)autoLoading {
@@ -46,13 +43,13 @@ const char* const kXHCachingKey   = "XHCachingKey";
 
 #pragma mark- Properties
 
-- (id)operationQueue {
-    dispatch_queue_t queue = objc_getAssociatedObject(self, kXHCachingKey);
-    if (!queue) {
-        queue = dispatch_queue_create("caching image and data", NULL);
-        objc_setAssociatedObject(self, kXHCachingKey, queue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-    return queue;
+- (dispatch_queue_t)cachingQueue {
+    static dispatch_queue_t cachingQeueu;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        cachingQeueu = dispatch_queue_create("caching image and data", NULL);
+    });
+    return cachingQeueu;
 }
 
 - (NSURL*)url {
@@ -184,7 +181,7 @@ const char* const kXHCachingKey   = "XHCachingKey";
     [self showLoadingView];
     
     __weak typeof(self) weakSelf = self;
-    dispatch_async([self operationQueue], ^{
+    dispatch_async(self.cachingQueue, ^{
         UIImage *cacheImage = [XHCacheManager imageWithURL:weakSelf.url storeMemoryCache:YES];
         if (cacheImage) {
             [self setImage:cacheImage forURL:weakSelf.url];
@@ -204,7 +201,7 @@ const char* const kXHCachingKey   = "XHCachingKey";
 }
 
 - (void)cachingImageData:(NSData *)imageData url:(NSURL *)url {
-    dispatch_async([self operationQueue], ^{
+    dispatch_async(self.cachingQueue, ^{
         if (imageData) {
             [XHCacheManager storeData:imageData forURL:url storeMemoryCache:NO];
             UIImage *image = [UIImage imageWithData:imageData];

@@ -45,7 +45,6 @@
         imageView.userInteractionEnabled = YES;
         [imageView addGestureRecognizer:gesture];
         
-        [imageView setDefaultLoadingView];
         if (index) {
             [imageView loadWithURL:[URLStoreManager getUrlWithIndex:index]];
         } else {
