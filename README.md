@@ -23,6 +23,11 @@ Easy to use download web image form the open source.
 UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 160, 200)]
 [imageView setDefaultLoadingView];
 [imageView loadWithURL:[NSURL URLWithString:@"http://www.pailixiu.com/IMG_1388.JPG"]];
+
+multiple api to use：
+- (void)loadWithURL:(NSURL *)url placeholer:(UIImage *)placeholerImage;
+- (void)loadWithURL:(NSURL *)url placeholer:(UIImage *)placeholerImage showActivityIndicatorView:(BOOL)show;
+
 ```
 
 ## Profile
