@@ -10,9 +10,14 @@
 
 #import <objc/runtime.h>
 
+#import "XHCacheManager.h"
+
 const char* const kXHURLPropertyKey   = "XHURLDownloadURLPropertyKey";
 const char* const kXHLoadingStateKey  = "XHURLDownloadLoadingStateKey";
 const char* const kXHLoadingViewKey   = "XHURLDownloadLoadingViewKey";
+
+const char* const kXHCachingKey   = "XHCachingKey";
+
 
 @implementation UIImageView (XHURLDownload)
 
@@ -40,6 +45,15 @@ const char* const kXHLoadingViewKey   = "XHURLDownloadLoadingViewKey";
 }
 
 #pragma mark- Properties
+
+- (id)operationQueue {
+    dispatch_queue_t queue = objc_getAssociatedObject(self, kXHCachingKey);
+    if (!queue) {
+        queue = dispatch_queue_create("caching image and data", NULL);
+        objc_setAssociatedObject(self, kXHCachingKey, queue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return queue;
+}
 
 - (NSURL*)url {
     return objc_getAssociatedObject(self, kXHURLPropertyKey);
@@ -169,21 +183,42 @@ const char* const kXHLoadingViewKey   = "XHURLDownloadLoadingViewKey";
     
     [self showLoadingView];
     
-    // It could be more better by replacing with a method that has delegates like a progress.
-    [UIImageView dataWithContentsOfURL:self.url
-                       completionBlock:^(NSURL *url, NSData *data, NSError *error) {
-                           UIImage *image = [self didFinishDownloadWithData:data forURL:url error:error];
-                           
-                           if(handler) {
-                               handler(image, url, error);
-                           }
-                       }
-     ];
+    __weak typeof(self) weakSelf = self;
+    dispatch_async([self operationQueue], ^{
+        UIImage *cacheImage = [XHCacheManager imageWithURL:weakSelf.url storeMemoryCache:YES];
+        if (cacheImage) {
+            [self setImage:cacheImage forURL:weakSelf.url];
+        } else {
+            // It could be more better by replacing with a method that has delegates like a progress.
+            [UIImageView dataWithContentsOfURL:weakSelf.url
+                               completionBlock:^(NSURL *url, NSData *data, NSError *error) {
+                                   UIImage *image = [weakSelf didFinishDownloadWithData:data forURL:url error:error];
+                                   
+                                   if(handler) {
+                                       handler(image, url, error);
+                                   }
+                               }
+             ];
+        }
+    });
+}
+
+- (void)cachingImageData:(NSData *)imageData url:(NSURL *)url {
+    dispatch_async([self operationQueue], ^{
+        if (imageData) {
+            [XHCacheManager storeData:imageData forURL:url storeMemoryCache:NO];
+            UIImage *image = [UIImage imageWithData:imageData];
+            if (image)
+                [XHCacheManager storeMemoryCacheWithImage:image forURL:url];
+        }
+    });
 }
 
 - (UIImage *)didFinishDownloadWithData:(NSData *)data forURL:(NSURL *)url error:(NSError *)error {
+    if (data) {
+        [self cachingImageData:data url:url];
+    }
     UIImage *image = [UIImage imageWithData:data];
-    
     if([url isEqual:self.url]) {
         if(error) {
             self.loadingState = UIImageViewURLDownloadStateFailed;
