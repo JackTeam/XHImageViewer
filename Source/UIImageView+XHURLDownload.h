@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, UIImageViewURLDownloadState) {
 @property (nonatomic, strong) NSURL *url;
 
 // download state
-@property (nonatomic, assign) UIImageViewURLDownloadState state;
+@property (nonatomic, readonly) UIImageViewURLDownloadState loadingState;
 
 // UI
 @property (nonatomic, strong) UIView *loadingView;
