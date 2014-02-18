@@ -27,7 +27,7 @@ UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 160
 multiple api to use：
 - (void)loadWithURL:(NSURL *)url placeholer:(UIImage *)placeholerImage;
 - (void)loadWithURL:(NSURL *)url placeholer:(UIImage *)placeholerImage showActivityIndicatorView:(BOOL)show;
-
+- (void)loadWithURL:(NSURL *)url placeholer:(UIImage *)placeholerImage showActivityIndicatorView:(BOOL)show completionBlock:(void(^)(UIImage *image, NSURL *url, NSError *error))handler;
 ```
 
 ## Profile
