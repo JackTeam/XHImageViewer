@@ -22,7 +22,7 @@ const char* const kXHActivityIndicatorViewKey   = "XHActivityIndicatorViewKey";
 
 @implementation UIImageView (XHURLDownload)
 
-+ (id)imageViewWithURL:(NSURL*)url autoLoading:(BOOL)autoLoading {
++ (id)imageViewWithURL:(NSURL *)url autoLoading:(BOOL)autoLoading {
     UIImageView *view = [self new];
     view.url = url;
     if(autoLoading) {
@@ -38,7 +38,7 @@ const char* const kXHActivityIndicatorViewKey   = "XHActivityIndicatorViewKey";
     return view;
 }
 
-+ (id)indicatorImageViewWithURL:(NSURL*)url autoLoading:(BOOL)autoLoading {
++ (id)indicatorImageViewWithURL:(NSURL *)url autoLoading:(BOOL)autoLoading {
     UIImageView *view = [self imageViewWithURL:url autoLoading:autoLoading];
     [view setDefaultLoadingView];
     
@@ -102,7 +102,7 @@ const char* const kXHActivityIndicatorViewKey   = "XHActivityIndicatorViewKey";
     [self setUrl:url autoLoading:YES];
 }
 
-- (void)loadWithURL:(NSURL*)url placeholer:(UIImage *)placeholerImage showActivityIndicatorView:(BOOL)show completionBlock:(void(^)(UIImage *image, NSURL *url, NSError *error))handler {
+- (void)loadWithURL:(NSURL *)url placeholer:(UIImage *)placeholerImage showActivityIndicatorView:(BOOL)show completionBlock:(void(^)(UIImage *image, NSURL *url, NSError *error))handler {
     [self _setupPlaecholerImage:placeholerImage showActivityIndicatorView:show];
     [self setUrl:url autoLoading:NO];
     [self loadWithCompletionBlock:handler];
