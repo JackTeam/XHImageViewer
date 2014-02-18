@@ -37,10 +37,12 @@ typedef NS_ENUM(NSInteger, UIImageViewURLDownloadState) {
 + (id)indicatorImageViewWithURL:(NSURL*)url autoLoading:(BOOL)autoLoading;
 
 // Download
+- (void)loadWithURL:(NSURL *)url;
+- (void)loadWithURL:(NSURL *)url placeholer:(UIImage *)placeholerImage;
+- (void)loadWithURL:(NSURL *)url placeholer:(UIImage *)placeholerImage showActivityIndicatorView:(BOOL)show;
+- (void)loadWithURL:(NSURL*)url placeholer:(UIImage *)placeholerImage showActivityIndicatorView:(BOOL)show completionBlock:(void(^)(UIImage *image, NSURL *url, NSError *error))handler;
+
 - (void)setUrl:(NSURL *)url autoLoading:(BOOL)autoLoading;
 - (void)load;
-- (void)loadWithURL:(NSURL *)url;
-- (void)loadWithURL:(NSURL*)url completionBlock:(void(^)(UIImage *image, NSURL *url, NSError *error))handler;
-
 
 @end

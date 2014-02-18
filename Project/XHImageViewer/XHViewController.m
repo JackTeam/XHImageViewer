@@ -46,7 +46,7 @@
         [imageView addGestureRecognizer:gesture];
         
         if (index) {
-            [imageView loadWithURL:[URLStoreManager getUrlWithIndex:index]];
+            [imageView loadWithURL:[URLStoreManager getUrlWithIndex:index] placeholer:[UIImage imageNamed:@"placeholder.jpeg"] showActivityIndicatorView:YES];
         } else {
             imageView.image = [UIImage imageNamed:@"4_1366x768.jpeg"];
         }

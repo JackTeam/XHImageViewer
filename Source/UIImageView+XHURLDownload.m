@@ -16,6 +16,10 @@ const char* const kXHURLPropertyKey   = "XHURLDownloadURLPropertyKey";
 const char* const kXHLoadingStateKey  = "XHURLDownloadLoadingStateKey";
 const char* const kXHLoadingViewKey   = "XHURLDownloadLoadingViewKey";
 
+const char* const kXHActivityIndicatorViewKey   = "XHActivityIndicatorViewKey";
+
+#define kXHActivityIndicatorViewSize 35
+
 @implementation UIImageView (XHURLDownload)
 
 + (id)imageViewWithURL:(NSURL*)url autoLoading:(BOOL)autoLoading {
@@ -52,6 +56,14 @@ const char* const kXHLoadingViewKey   = "XHURLDownloadLoadingViewKey";
     return cachingQeueu;
 }
 
+- (void)setActivityIndicatorView:(UIActivityIndicatorView *)activityIndicatorView {
+    objc_setAssociatedObject(self, kXHActivityIndicatorViewKey, activityIndicatorView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (UIActivityIndicatorView *)activityIndicatorView {
+    return objc_getAssociatedObject(self, kXHActivityIndicatorViewKey);
+}
+
 - (NSURL*)url {
     return objc_getAssociatedObject(self, kXHURLPropertyKey);
 }
@@ -78,12 +90,35 @@ const char* const kXHLoadingViewKey   = "XHURLDownloadLoadingViewKey";
 }
 
 - (void)loadWithURL:(NSURL *)url {
+    [self loadWithURL:url placeholer:nil];
+}
+
+- (void)loadWithURL:(NSURL *)url placeholer:(UIImage *)placeholerImage {
+    [self loadWithURL:url placeholer:placeholerImage showActivityIndicatorView:NO];
+}
+
+- (void)loadWithURL:(NSURL *)url placeholer:(UIImage *)placeholerImage showActivityIndicatorView:(BOOL)show {
+    [self _setupPlaecholerImage:placeholerImage showActivityIndicatorView:show];
     [self setUrl:url autoLoading:YES];
 }
 
-- (void)loadWithURL:(NSURL*)url completionBlock:(void(^)(UIImage *image, NSURL *url, NSError *error))handler {
+- (void)loadWithURL:(NSURL*)url placeholer:(UIImage *)placeholerImage showActivityIndicatorView:(BOOL)show completionBlock:(void(^)(UIImage *image, NSURL *url, NSError *error))handler {
+    [self _setupPlaecholerImage:placeholerImage showActivityIndicatorView:show];
     [self setUrl:url autoLoading:NO];
     [self loadWithCompletionBlock:handler];
+}
+
+- (void)_setupPlaecholerImage:(UIImage *)placeholerImage showActivityIndicatorView:(BOOL)show {
+    if (placeholerImage)
+        [self setImage:placeholerImage];
+    if (show) {
+        UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicatorView.frame = CGRectMake(0, 0, kXHActivityIndicatorViewSize, kXHActivityIndicatorViewSize);
+        activityIndicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+        [activityIndicatorView startAnimating];
+        [self addSubview:activityIndicatorView];
+        [self setActivityIndicatorView:activityIndicatorView];
+    }
 }
 
 - (UIImageViewURLDownloadState)loadingState {
@@ -129,6 +164,11 @@ const char* const kXHLoadingViewKey   = "XHURLDownloadLoadingViewKey";
 
 - (void)hideLoadingView {
     dispatch_async(dispatch_get_main_queue(), ^{
+        UIActivityIndicatorView *activityIndicatorView = [self activityIndicatorView];
+        if (activityIndicatorView) {
+            [activityIndicatorView stopAnimating];
+            [activityIndicatorView removeFromSuperview];
+        }
         [UIView animateWithDuration:0.3
                          animations:^{
                              self.loadingView.alpha = 0;
@@ -172,7 +212,6 @@ const char* const kXHLoadingViewKey   = "XHURLDownloadLoadingViewKey";
 
 - (void)load {
     [self loadWithCompletionBlock:nil];
-    
 }
 
 - (void)loadWithCompletionBlock:(void(^)(UIImage *image, NSURL *url, NSError *error))handler {
@@ -185,6 +224,8 @@ const char* const kXHLoadingViewKey   = "XHURLDownloadLoadingViewKey";
         UIImage *cacheImage = [XHCacheManager imageWithURL:weakSelf.url storeMemoryCache:YES];
         if (cacheImage) {
             [self setImage:cacheImage forURL:weakSelf.url];
+            if (handler)
+                handler(cacheImage, weakSelf.url, nil);
         } else {
             // It could be more better by replacing with a method that has delegates like a progress.
             [UIImageView dataWithContentsOfURL:weakSelf.url

@@ -33,6 +33,7 @@
 		AB8B65F018B396F5001EAFA3 /* UIImage+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8B65EF18B396F5001EAFA3 /* UIImage+Utility.m */; };
 		AB8B65F318B398E9001EAFA3 /* XHFileAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8B65F218B398E9001EAFA3 /* XHFileAttribute.m */; };
 		AB8B65F618B39DC1001EAFA3 /* NSString+XHMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8B65F518B39DC1001EAFA3 /* NSString+XHMD5.m */; };
+		AB8B65F818B3B1F5001EAFA3 /* placeholder.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AB8B65F718B3B1F5001EAFA3 /* placeholder.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		AB8B65F218B398E9001EAFA3 /* XHFileAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHFileAttribute.m; sourceTree = "<group>"; };
 		AB8B65F418B39DC1001EAFA3 /* NSString+XHMD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XHMD5.h"; sourceTree = "<group>"; };
 		AB8B65F518B39DC1001EAFA3 /* NSString+XHMD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XHMD5.m"; sourceTree = "<group>"; };
+		AB8B65F718B3B1F5001EAFA3 /* placeholder.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = placeholder.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +217,7 @@
 		AB76C3FD18B2668800A38037 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AB8B65F718B3B1F5001EAFA3 /* placeholder.jpeg */,
 				AB76C3FE18B2668800A38037 /* 1_1280x800-1.jpeg */,
 				AB76C3FF18B2668800A38037 /* 1_1280x800.jpeg */,
 				AB76C40018B2668800A38037 /* 4_1366x768.jpeg */,
@@ -304,6 +307,7 @@
 				AB76C40318B2668800A38037 /* 1_1280x800.jpeg in Resources */,
 				AB76C3C318B25A5C00A38037 /* Images.xcassets in Resources */,
 				AB76C40418B2668800A38037 /* 4_1366x768.jpeg in Resources */,
+				AB8B65F818B3B1F5001EAFA3 /* placeholder.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
