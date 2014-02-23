@@ -35,7 +35,7 @@ multiple api to use：
 [CocosPods](http://cocosPods.org) is the recommended methods of installation XHPathCover, just add the following line to `Profile`:
 
 ```
-pod 'XHImageViewer', '~> 0.1.0'
+pod 'XHImageViewer', '~> 0.1.2'
 ```
 
 ## Lincense ##
