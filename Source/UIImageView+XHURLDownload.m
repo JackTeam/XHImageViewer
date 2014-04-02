@@ -115,6 +115,7 @@ const char* const kXHActivityIndicatorViewKey   = "XHActivityIndicatorViewKey";
         UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         activityIndicatorView.frame = CGRectMake(0, 0, kXHActivityIndicatorViewSize, kXHActivityIndicatorViewSize);
         activityIndicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+        activityIndicatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [activityIndicatorView startAnimating];
         [self addSubview:activityIndicatorView];
         [self setActivityIndicatorView:activityIndicatorView];
