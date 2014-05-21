@@ -16,7 +16,7 @@
         case 0:
             break;
         case 1:
-            url = [NSURL URLWithString:@"http://www.pailixiu.com/IMG_0980.JPG"];
+            url = [NSURL URLWithString:@"http://www.pailixiu.com/IMG_1388.JPG"];
             break;
         case 2:
             url = [NSURL URLWithString:@"http://www.pailixiu.com/IMG_1388.JPG"];
