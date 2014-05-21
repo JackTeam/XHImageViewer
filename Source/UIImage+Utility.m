@@ -11,9 +11,12 @@
 @implementation UIImage (Utility)
 
 + (UIImage *)decode:(UIImage *)image {
-    if(image==nil) {  return nil; }
+    if(image == nil) {
+        return nil;
+    }
     
     UIGraphicsBeginImageContext(image.size);
+    
     {
         [image drawAtPoint:CGPointMake(0, 0)];
         image = UIGraphicsGetImageFromCurrentImageContext();

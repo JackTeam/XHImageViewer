@@ -66,7 +66,7 @@
 }
 
 - (void)setImageView:(UIImageView *)imageView {
-    if(imageView != _imageView){
+    if(imageView != _imageView) {
         [_imageView removeObserver:self forKeyPath:@"image"];
         [_imageView removeFromSuperview];
         
@@ -94,7 +94,7 @@
 #pragma mark- observe
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if(object==self.imageView){
+    if(object == self.imageView) {
         [self imageDidChange];
     }
 }

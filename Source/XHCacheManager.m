@@ -70,16 +70,16 @@
     BOOL isDirectory = NO;
     BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:rootDir isDirectory:&isDirectory];
     
-    if(!exists || !isDirectory){
+    if(!exists || !isDirectory) {
         [[NSFileManager defaultManager] createDirectoryAtPath:rootDir withIntermediateDirectories:YES attributes:nil error:nil];
     }
     
-    for(int i=0; i<16; i++) {
-        for(int j=0; j<16; j++) {
+    for(int i = 0; i < 16; i++) {
+        for(int j = 0; j < 16; j++) {
             NSString *subDir = [NSString stringWithFormat:@"%@/%X%X", rootDir, i, j];
             isDirectory = NO;
             exists = [[NSFileManager defaultManager] fileExistsAtPath:subDir isDirectory:&isDirectory];
-            if(!exists || !isDirectory){
+            if(!exists || !isDirectory) {
                 [[NSFileManager defaultManager] createDirectoryAtPath:subDir withIntermediateDirectories:YES attributes:nil error:nil];
             }
         }
@@ -89,7 +89,7 @@
 #pragma mark- directory operation
 
 - (NSString *)_cacheDirectory {
-    if(_cacheDirectoryPath == nil){
+    if(_cacheDirectoryPath == nil) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         _cacheDirectoryPath = [paths.lastObject stringByAppendingPathComponent:self.identifier.MD5Hash];
         [self.class _checkWorkspace:_cacheDirectoryPath];
@@ -102,8 +102,8 @@
     NSString *rootDir = self._cacheDirectory;
     NSMutableArray *files = [NSMutableArray array];
     
-    for(int i=0; i<16; i++) {
-        for(int j=0; j<16; j++) {
+    for(int i = 0; i < 16; i ++) {
+        for(int j = 0; j < 16; j++) {
             NSString *subDir = [NSString stringWithFormat:@"%@/%X%X", rootDir, i, j];
             NSArray *list = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:subDir error:nil];
             
@@ -131,7 +131,7 @@
     NSSortDescriptor *dsc = [NSSortDescriptor sortDescriptorWithKey:@"fileModificationDate" ascending:NO];
     list = [list sortedArrayUsingDescriptors:@[dsc]];
     
-    for(NSInteger i = numberOfCacheFiles; i < list.count; ++i){
+    for(NSInteger i = numberOfCacheFiles; i < list.count; ++i) {
         XHFileAttribute *file = list[i];
         [[NSFileManager defaultManager] removeItemAtPath:file.filePath error:nil];
     }
@@ -151,7 +151,7 @@
 }
 
 - (void)removeCacheForURL:(NSURL *)url {
-    if(url.absoluteString.length>0){
+    if(url.absoluteString.length > 0){
         [self _removeCacheForHash:url.absoluteString.MD5Hash];
     }
 }
@@ -172,7 +172,7 @@
 #pragma mark- NSData caching
 
 - (void)storeData:(NSData *)data forURL:(NSURL *)url storeMemoryCache:(BOOL)storeMemoryCache {
-    if(data && url.absoluteString.length > 0){
+    if(data && url.absoluteString.length > 0) {
         [self _storeData:data forHash:url.absoluteString.MD5Hash storeMemoryCache:storeMemoryCache];
     }
 }
@@ -206,21 +206,21 @@
     }
     
     data = [self _localCachedDataWithHash:hash];
-    if(storeMemoryCache && data!=nil){
+    if(storeMemoryCache && data!=nil) {
         [_memoryCache setObject:data forKey:hash];
     }
     return data;
 }
 
 - (NSData *)dataWithURL:(NSURL *)url storeMemoryCache:(BOOL)storeMemoryCache {
-    if(url.absoluteString.length == 0){
+    if(url.absoluteString.length == 0) {
         return nil;
     }
     return [self _cachedDataWithHash:url.absoluteString.MD5Hash storeMemoryCache:storeMemoryCache];
 }
 
 - (BOOL)existsDataForURL:(NSURL *)url {
-    if(url.absoluteString.length > 0){
+    if(url.absoluteString.length > 0) {
         NSString *path = [self _pathForHash:url.absoluteString.MD5Hash];
         
         BOOL isDirectory = YES;
@@ -234,7 +234,7 @@
 #pragma mark- UIImage caching
 
 - (void)storeMemoryCacheWithImage:(UIImage *)image forURL:(NSURL *)url {
-    if(image && url.absoluteString.length > 0){
+    if(image && url.absoluteString.length > 0) {
         [self storeMemoryCacheWithImage:image forHash:url.absoluteString.MD5Hash];
     }
 }
@@ -244,7 +244,7 @@
 }
 
 - (UIImage *)imageWithURL:(NSURL *)url storeMemoryCache:(BOOL)storeMemoryCache {
-    if(url.absoluteString.length == 0){
+    if(url.absoluteString.length == 0) {
         return nil;
     }
     
@@ -255,12 +255,11 @@
         
         if([data isKindOfClass:[NSData class]]) {
             image = [UIImage fastImageWithData:data];
-        }
-        else if([data isKindOfClass:[UIImage class]]){
+        } else if([data isKindOfClass:[UIImage class]]) {
             image = (UIImage*)data;
         }
         
-        if(image){
+        if(image) {
             if(storeMemoryCache){
                 [self storeMemoryCacheWithImage:image forURL:url];
             }

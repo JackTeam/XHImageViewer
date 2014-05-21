@@ -46,8 +46,8 @@
 
 - (void)setImageViewsFromArray:(NSArray*)views {
     NSMutableArray *imgViews = [NSMutableArray array];
-    for(id obj in views){
-        if([obj isKindOfClass:[UIImageView class]]){
+    for(id obj in views) {
+        if([obj isKindOfClass:[UIImageView class]]) {
             [imgViews addObject:obj];
             
             UIImageView *view = obj;
@@ -64,7 +64,7 @@
 - (void)showWithImageViews:(NSArray*)views selectedView:(UIImageView*)selectedView {
     [self setImageViewsFromArray:views];
     
-    if(_imgViews.count > 0){
+    if(_imgViews.count > 0) {
         if(![selectedView isKindOfClass:[UIImageView class]] || ![_imgViews containsObject:selectedView]){
             selectedView = _imgViews[0];
         }
@@ -88,10 +88,8 @@
     return [_imgViews objectAtIndex:self.pageIndex];
 }
 
-- (void)showWithSelectedView:(UIImageView*)selectedView {
-    for(UIView *view in _scrollView.subviews) {
-        [view removeFromSuperview];
-    }
+- (void)showWithSelectedView:(UIImageView *)selectedView {
+    [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     const NSInteger currentPage = [_imgViews indexOfObject:selectedView];
     
@@ -196,7 +194,7 @@
                          currentView.transform = state.transform;
                          [state.superview addSubview:currentView];
                          
-                         for(UIView *view in _imgViews){
+                         for (UIView *view in _imgViews) {
                              XHViewState *_state = [XHViewState viewStateForView:view];
                              view.userInteractionEnabled = _state.userInteratctionEnabled;
                          }
@@ -208,28 +206,25 @@
 
 #pragma mark- Gesture events
 
-- (void)tappedScrollView:(UITapGestureRecognizer*)sender
-{
+- (void)tappedScrollView:(UITapGestureRecognizer *)sender {
     [self prepareToDismiss];
     [self dismissWithAnimate];
 }
 
-- (void)didPan:(UIPanGestureRecognizer*)sender
-{
+- (void)didPan:(UIPanGestureRecognizer *)sender {
     static UIImageView *currentView = nil;
     
-    if(sender.state == UIGestureRecognizerStateBegan){
+    if(sender.state == UIGestureRecognizerStateBegan) {
         currentView = [self currentView];
         
         UIView *targetView = currentView.superview;
-        while(![targetView isKindOfClass:[XHZoomingImageView class]]){
+        while(![targetView isKindOfClass:[XHZoomingImageView class]]) {
             targetView = targetView.superview;
         }
         
-        if(((XHZoomingImageView *)targetView).isViewing){
+        if (((XHZoomingImageView *)targetView).isViewing) {
             currentView = nil;
-        }
-        else{
+        } else {
             UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
             currentView.frame = [window convertRect:currentView.frame fromView:currentView.superview];
             [window addSubview:currentView];
@@ -238,17 +233,15 @@
         }
     }
     
-    if(currentView){
-        if(sender.state == UIGestureRecognizerStateEnded){
-            if(_scrollView.alpha>0.5){
+    if(currentView) {
+        if(sender.state == UIGestureRecognizerStateEnded) {
+            if(_scrollView.alpha>0.5) {
                 [self showWithSelectedView:currentView];
-            }
-            else{
+            } else {
                 [self dismissWithAnimate];
             }
             currentView = nil;
-        }
-        else{
+        } else {
             CGPoint p = [sender translationInView:self];
             
             CGAffineTransform transform = CGAffineTransformMakeTranslation(0, p.y);

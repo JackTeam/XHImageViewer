@@ -12,10 +12,12 @@
 
 + (XHViewState *)viewStateForView:(UIView *)view {
     static NSMutableDictionary *dict = nil;
-    if(dict==nil){ dict = [NSMutableDictionary dictionary]; }
+    if(dict == nil) {
+        dict = [NSMutableDictionary dictionary];
+    }
     
     XHViewState *state = dict[@(view.hash)];
-    if(state==nil){
+    if(state == nil) {
         state = [[self alloc] init];
         dict[@(view.hash)] = state;
     }

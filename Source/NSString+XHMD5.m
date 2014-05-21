@@ -12,7 +12,9 @@
 @implementation NSString (XHMD5)
 
 - (NSString *)MD5Hash {
-    if(self.length == 0) { return nil; }
+    if(self.length == 0) {
+        return nil;
+    }
     
 	const char *cStr = [self UTF8String];
 	unsigned char result[16];

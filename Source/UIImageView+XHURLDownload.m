@@ -261,8 +261,7 @@ const char* const kXHActivityIndicatorViewKey   = "XHActivityIndicatorViewKey";
     if([url isEqual:self.url]) {
         if(error) {
             self.loadingState = UIImageViewURLDownloadStateFailed;
-        }
-        else {
+        } else {
             [self performSelectorOnMainThread:@selector(setImage:) withObject:image waitUntilDone:NO];
             self.loadingState = UIImageViewURLDownloadStateLoaded;
         }
