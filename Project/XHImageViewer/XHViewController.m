@@ -13,6 +13,7 @@
 
 @interface XHViewController () <XHImageViewerDelegate> {
     NSMutableArray *_imageViews;
+    UILabel *_label;
 }
 
 @end
@@ -43,12 +44,14 @@
         NSInteger index = [_imageViews indexOfObject:imageView];
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle:)];
         imageView.userInteractionEnabled = YES;
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
         [imageView addGestureRecognizer:gesture];
         
         if (index) {
             [imageView loadWithURL:[URLStoreManager getUrlWithIndex:index] placeholer:[UIImage imageNamed:@"placeholder.jpeg"] showActivityIndicatorView:YES];
         } else {
-            imageView.image = [UIImage imageNamed:@"4_1366x768.jpeg"];
+            imageView.image = [UIImage imageNamed:@"screenshot.png"];
         }
         
         
@@ -65,6 +68,7 @@
 - (void)tapHandle:(UITapGestureRecognizer *)tap {
     XHImageViewer *imageViewer = [[XHImageViewer alloc] init];
     imageViewer.delegate = self;
+    imageViewer.disableTouchDismiss = YES;
     [imageViewer showWithImageViews:_imageViews selectedView:(UIImageView *)tap.view];
 }
 
@@ -74,5 +78,31 @@
     NSInteger index = [_imageViews indexOfObject:selectedView];
     NSLog(@"index : %d", index);
 }
+
+- (void) imageViewer:(XHImageViewer *)imageViewer didChangeToImageView:(UIImageView *)selectedView {
+    NSInteger index = [_imageViews indexOfObject:selectedView];
+    NSLog(@"change to index : %d", index);
+    _label.text = [NSString stringWithFormat:@" %d/%d",index+1,_imageViews.count];
+}
+
+- (UIView *) customNavigationBarOfImageViewer:(XHImageViewer *) imageViewer {
+    UIView *topBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
+     _label = [[UILabel alloc] initWithFrame:CGRectMake(80, 20, 160, 21)];
+    _label.backgroundColor = [UIColor clearColor];
+    _label.font = [UIFont systemFontOfSize:16];
+    _label.textAlignment = NSTextAlignmentCenter;
+    _label.text = @"图库";
+    _label.textColor = [UIColor whiteColor];
+    [topBar addSubview:_label];
+    topBar.backgroundColor = [UIColor clearColor];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    button.frame = CGRectMake(0, 20, 80, 40);
+    [button addTarget:imageViewer action:@selector(dismissImageViewer:) forControlEvents:UIControlEventTouchUpInside];
+    [topBar addSubview:button];
+    
+    return topBar;
+}
+
 
 @end
