@@ -12,13 +12,15 @@
 
 @optional
 - (void)imageViewer:(XHImageViewer *)imageViewer  willDismissWithSelectedView:(UIImageView*)selectedView;
-
+- (UIView *)customNavigationBarOfImageViewer:(XHImageViewer *) imageViewer;
+- (void) imageViewer:(XHImageViewer *)imageViewer didChangeToImageView:(UIImageView *) selectedView;
 @end
 
 @interface XHImageViewer : UIView
 
 @property (nonatomic, weak) id<XHImageViewerDelegate> delegate;
 @property (nonatomic, assign) CGFloat backgroundScale;
+@property (nonatomic, assign) BOOL disableTouchDismiss;
 
 - (void)showWithImageViews:(NSArray*)views selectedView:(UIImageView*)selectedView;
 @end

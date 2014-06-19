@@ -10,7 +10,7 @@
 #import "XHViewState.h"
 #import "XHZoomingImageView.h"
 
-@interface XHImageViewer ()
+@interface XHImageViewer () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) NSArray *imgViews;
@@ -82,6 +82,15 @@
     return (_scrollView.contentOffset.x / _scrollView.frame.size.width + 0.5);
 }
 
+#pragma mark - Getter Method
+
+- (UIView *)topNavationBar {
+    if ([self.delegate respondsToSelector:@selector(customNavigationBarOfImageViewer:)]) {
+        return [self.delegate customNavigationBarOfImageViewer:self];
+    }
+    return nil;
+}
+
 #pragma mark- View management
 
 - (UIImageView *)currentView {
@@ -95,6 +104,11 @@
     
     UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
     
+    UIView *topNavationBar = [self topNavationBar];
+    if  (topNavationBar) {
+        if (![self.subviews containsObject:topNavationBar])
+            [self addSubview:topNavationBar];
+    }
     if(_scrollView == nil) {
         _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
         _scrollView.pagingEnabled = YES;
@@ -102,9 +116,11 @@
         _scrollView.showsVerticalScrollIndicator   = NO;
         _scrollView.backgroundColor = [self.backgroundColor colorWithAlphaComponent:1];
         _scrollView.alpha = 0;
+        _scrollView.delegate = self;
     }
     
     [self addSubview:_scrollView];
+    [self sendSubviewToBack:_scrollView];
     [window addSubview:self];
     
     const CGFloat fullW = window.frame.size.width;
@@ -207,11 +223,17 @@
 #pragma mark- Gesture events
 
 - (void)tappedScrollView:(UITapGestureRecognizer *)sender {
+    if(self.disableTouchDismiss){
+        return;
+    }
     [self prepareToDismiss];
     [self dismissWithAnimate];
 }
 
 - (void)didPan:(UIPanGestureRecognizer *)sender {
+    if(self.disableTouchDismiss){
+        return;
+    }
     static UIImageView *currentView = nil;
     
     if(sender.state == UIGestureRecognizerStateBegan) {
@@ -252,6 +274,21 @@
             _scrollView.alpha = MAX(0, MIN(1, r));
         }
     }
+}
+
+#pragma mark - UIScrollView delegate
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if([self.delegate respondsToSelector:@selector(imageViewer:didChangeToImageView:)]){
+        [self.delegate imageViewer:self didChangeToImageView:[self currentView]];
+    }
+}
+
+#pragma mark -
+- (void) dismissImageViewer:(id)sender
+{
+    [self prepareToDismiss];
+    [self dismissWithAnimate];
 }
 
 @end
