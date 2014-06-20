@@ -7,20 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @class XHImageViewer;
+
 @protocol XHImageViewerDelegate <NSObject>
 
 @optional
-- (void)imageViewer:(XHImageViewer *)imageViewer  willDismissWithSelectedView:(UIImageView*)selectedView;
-- (UIView *)customNavigationBarOfImageViewer:(XHImageViewer *) imageViewer;
-- (void) imageViewer:(XHImageViewer *)imageViewer didChangeToImageView:(UIImageView *) selectedView;
+- (void)imageViewer:(XHImageViewer *)imageViewer willDismissWithSelectedView:(UIImageView *)selectedView;
+- (UIView *)customNavigationBarOfImageViewer:(XHImageViewer *)imageViewer;
+- (void)imageViewer:(XHImageViewer *)imageViewer didChangeToImageView:(UIImageView *)selectedView;
+
 @end
 
 @interface XHImageViewer : UIView
 
-@property (nonatomic, weak) id<XHImageViewerDelegate> delegate;
+@property (nonatomic, weak) id <XHImageViewerDelegate> delegate;
+
 @property (nonatomic, assign) CGFloat backgroundScale;
+
 @property (nonatomic, assign) BOOL disableTouchDismiss;
 
-- (void)showWithImageViews:(NSArray*)views selectedView:(UIImageView*)selectedView;
+- (void)showWithImageViews:(NSArray*)views selectedView:(UIImageView *)selectedView;
+
 @end

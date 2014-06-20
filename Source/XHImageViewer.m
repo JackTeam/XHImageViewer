@@ -119,8 +119,7 @@
         _scrollView.delegate = self;
     }
     
-    [self addSubview:_scrollView];
-    [self sendSubviewToBack:_scrollView];
+    [self insertSubview:_scrollView atIndex:0];
     [window addSubview:self];
     
     const CGFloat fullW = window.frame.size.width;
@@ -223,7 +222,7 @@
 #pragma mark- Gesture events
 
 - (void)tappedScrollView:(UITapGestureRecognizer *)sender {
-    if(self.disableTouchDismiss){
+    if(self.disableTouchDismiss) {
         return;
     }
     [self prepareToDismiss];
@@ -231,7 +230,7 @@
 }
 
 - (void)didPan:(UIPanGestureRecognizer *)sender {
-    if(self.disableTouchDismiss){
+    if(self.disableTouchDismiss) {
         return;
     }
     static UIImageView *currentView = nil;
@@ -279,14 +278,13 @@
 #pragma mark - UIScrollView delegate
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    if([self.delegate respondsToSelector:@selector(imageViewer:didChangeToImageView:)]){
+    if ([self.delegate respondsToSelector:@selector(imageViewer:didChangeToImageView:)]) {
         [self.delegate imageViewer:self didChangeToImageView:[self currentView]];
     }
 }
 
 #pragma mark -
-- (void) dismissImageViewer:(id)sender
-{
+- (void)dismissImageViewer:(id)sender {
     [self prepareToDismiss];
     [self dismissWithAnimate];
 }

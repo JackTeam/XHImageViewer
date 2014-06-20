@@ -13,7 +13,6 @@
 
 @interface XHViewController () <XHImageViewerDelegate> {
     NSMutableArray *_imageViews;
-    UILabel *_label;
 }
 
 @end
@@ -68,7 +67,7 @@
 - (void)tapHandle:(UITapGestureRecognizer *)tap {
     XHImageViewer *imageViewer = [[XHImageViewer alloc] init];
     imageViewer.delegate = self;
-    imageViewer.disableTouchDismiss = YES;
+    imageViewer.disableTouchDismiss = NO;
     [imageViewer showWithImageViews:_imageViews selectedView:(UIImageView *)tap.view];
 }
 
@@ -82,27 +81,6 @@
 - (void) imageViewer:(XHImageViewer *)imageViewer didChangeToImageView:(UIImageView *)selectedView {
     NSInteger index = [_imageViews indexOfObject:selectedView];
     NSLog(@"change to index : %d", index);
-    _label.text = [NSString stringWithFormat:@" %d/%d",index+1,_imageViews.count];
 }
-
-- (UIView *) customNavigationBarOfImageViewer:(XHImageViewer *) imageViewer {
-    UIView *topBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
-     _label = [[UILabel alloc] initWithFrame:CGRectMake(80, 20, 160, 21)];
-    _label.backgroundColor = [UIColor clearColor];
-    _label.font = [UIFont systemFontOfSize:16];
-    _label.textAlignment = NSTextAlignmentCenter;
-    _label.text = @"图库";
-    _label.textColor = [UIColor whiteColor];
-    [topBar addSubview:_label];
-    topBar.backgroundColor = [UIColor clearColor];
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    button.frame = CGRectMake(0, 20, 80, 40);
-    [button addTarget:imageViewer action:@selector(dismissImageViewer:) forControlEvents:UIControlEventTouchUpInside];
-    [topBar addSubview:button];
-    
-    return topBar;
-}
-
 
 @end
