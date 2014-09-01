@@ -15,6 +15,11 @@
 
 @property(nonatomic, strong) UIScrollView *scrollView;
 @property(nonatomic, strong) NSArray *imgViews;
+@property(nonatomic, copy)
+    willDismissWithSelectedViewBlock willDismissWithSelectedViewBlock;
+@property(nonatomic, copy)
+    didDismissWithSelectedViewBlock didDismissWithSelectedViewBlock;
+@property(nonatomic, copy) didChangeToImageViewBlock didChangeToImageViewBlock;
 
 @end
 
@@ -24,6 +29,23 @@
   self = [self initWithFrame:CGRectZero];
   if (self) {
     [self _setup];
+  }
+  return self;
+}
+
+- (id)initWithImageViewerWillDismissWithSelectedViewBlock:
+          (willDismissWithSelectedViewBlock)willDismissWithSelectedViewBlock
+                          didDismissWithSelectedViewBlock:
+                              (didDismissWithSelectedViewBlock)
+                          didDismissWithSelectedViewBlock
+                                didChangeToImageViewBlock:
+                                    (didChangeToImageViewBlock)
+                                didChangeToImageViewBlock {
+  if (self = [self initWithFrame:CGRectZero]) {
+    [self _setup];
+    self.willDismissWithSelectedViewBlock = willDismissWithSelectedViewBlock;
+    self.didDismissWithSelectedViewBlock = didDismissWithSelectedViewBlock;
+    self.didChangeToImageViewBlock = didChangeToImageViewBlock;
   }
   return self;
 }
@@ -189,6 +211,10 @@
     [self.delegate imageViewer:self willDismissWithSelectedView:currentView];
   }
 
+  if (self.willDismissWithSelectedViewBlock) {
+    self.willDismissWithSelectedViewBlock(self, currentView);
+  }
+
   for (UIImageView *view in _imgViews) {
     if (view != currentView) {
       XHViewState *state = [XHViewState viewStateForView:view];
@@ -236,6 +262,9 @@
                                          didDismissWithSelectedView:)]) {
             [self.delegate imageViewer:self
                 didDismissWithSelectedView:currentView];
+          }
+          if (self.didDismissWithSelectedViewBlock) {
+            self.didDismissWithSelectedViewBlock(self, currentView);
           }
       }];
 }
@@ -304,6 +333,9 @@
   if ([self.delegate
           respondsToSelector:@selector(imageViewer:didChangeToImageView:)]) {
     [self.delegate imageViewer:self didChangeToImageView:[self currentView]];
+  }
+  if (self.didChangeToImageViewBlock) {
+    self.didChangeToImageViewBlock(self, [self currentView]);
   }
 }
 
