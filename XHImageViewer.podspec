@@ -1,7 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "XHImageViewer"
   s.version      = "0.1.3"
-
   s.summary      = "XHImageViewer is images viewer, zoom image."
   s.homepage     = "https://github.com/JackTeam/XHImageViewer"
   s.license      = "MIT"
