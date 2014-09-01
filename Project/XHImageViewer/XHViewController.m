@@ -71,7 +71,22 @@
 }
 
 - (void)tapHandle:(UITapGestureRecognizer *)tap {
-  XHImageViewer *imageViewer = [[XHImageViewer alloc] init];
+  XHImageViewer *imageViewer = [[XHImageViewer alloc]
+      initWithImageViewerWillDismissWithSelectedViewBlock:
+          ^(XHImageViewer *imageViewer, UIImageView *selectedView) {
+              NSInteger index = [_imageViews indexOfObject:selectedView];
+              NSLog(@"willDismissBlock index : %d", index);
+          }
+      didDismissWithSelectedViewBlock:^(XHImageViewer *imageViewer,
+                                        UIImageView *selectedView) {
+          NSInteger index = [_imageViews indexOfObject:selectedView];
+          NSLog(@"didDismissBlock index : %d", index);
+      }
+      didChangeToImageViewBlock:^(XHImageViewer *imageViewer,
+                                  UIImageView *selectedView) {
+          NSInteger index = [_imageViews indexOfObject:selectedView];
+          NSLog(@"changeBlock to index : %d", index);
+      }];
   imageViewer.delegate = self;
   imageViewer.disableTouchDismiss = NO;
   [imageViewer showWithImageViews:_imageViews

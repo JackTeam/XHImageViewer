@@ -11,6 +11,13 @@
 
 @class XHImageViewer;
 
+typedef void (^willDismissWithSelectedViewBlock)(XHImageViewer *imageViewer,
+                                                 UIImageView *selectedView);
+typedef void (^didDismissWithSelectedViewBlock)(XHImageViewer *imageViewer,
+                                                UIImageView *selectedView);
+typedef void (^didChangeToImageViewBlock)(XHImageViewer *imageViewer,
+                                          UIImageView *selectedView);
+
 @protocol XHImageViewerDelegate <NSObject>
 
 @optional
@@ -34,5 +41,12 @@
 
 - (void)showWithImageViews:(NSArray *)views
               selectedView:(UIImageView *)selectedView;
-
+- (id)initWithImageViewerWillDismissWithSelectedViewBlock:
+          (willDismissWithSelectedViewBlock)willDismissWithSelectedViewBlock
+                          didDismissWithSelectedViewBlock:
+                              (didDismissWithSelectedViewBlock)
+                          didDismissWithSelectedViewBlock
+                                didChangeToImageViewBlock:
+                                    (didChangeToImageViewBlock)
+    didChangeToImageViewBlock;
 @end
