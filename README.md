@@ -1,4 +1,4 @@
-![image](https://github.com/JackTeam/XHImageViewer/raw/master/Screenshots/XHImageViewer.gif)
+![image](https://github.com/xhzengAIB/LearnEnglish/raw/master/Screenshots/XHImageViewer.gif)
 XHImageViewer
 =============
 XHImageViewer is images viewer, zoom image
