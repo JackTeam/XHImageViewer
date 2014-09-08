@@ -11,12 +11,11 @@
 
 @class XHImageViewer;
 
-typedef void (^willDismissWithSelectedViewBlock)(XHImageViewer *imageViewer,
-                                                 UIImageView *selectedView);
-typedef void (^didDismissWithSelectedViewBlock)(XHImageViewer *imageViewer,
-                                                UIImageView *selectedView);
-typedef void (^didChangeToImageViewBlock)(XHImageViewer *imageViewer,
-                                          UIImageView *selectedView);
+typedef void (^WillDismissWithSelectedViewBlock)(XHImageViewer *imageViewer, UIImageView *selectedView);
+
+typedef void (^DidDismissWithSelectedViewBlock)(XHImageViewer *imageViewer, UIImageView *selectedView);
+
+typedef void (^DidChangeToImageViewBlock)(XHImageViewer *imageViewer, UIImageView *selectedView);
 
 @protocol XHImageViewerDelegate <NSObject>
 
@@ -25,10 +24,11 @@ typedef void (^didChangeToImageViewBlock)(XHImageViewer *imageViewer,
     willDismissWithSelectedView:(UIImageView *)selectedView;
 - (void)imageViewer:(XHImageViewer *)imageViewer
     didDismissWithSelectedView:(UIImageView *)selectedView;
-- (UIView *)customNavigationBarOfImageViewer:(XHImageViewer *)imageViewer;
 - (void)imageViewer:(XHImageViewer *)imageViewer
     didChangeToImageView:(UIImageView *)selectedView;
 
+- (UIView *)customTopToolBarOfImageViewer:(XHImageViewer *)imageViewer;
+- (UIView *)customBottomToolBarOfImageViewer:(XHImageViewer *)imageViewer;
 @end
 
 @interface XHImageViewer : UIView
@@ -41,12 +41,9 @@ typedef void (^didChangeToImageViewBlock)(XHImageViewer *imageViewer,
 
 - (void)showWithImageViews:(NSArray *)views
               selectedView:(UIImageView *)selectedView;
-- (id)initWithImageViewerWillDismissWithSelectedViewBlock:
-          (willDismissWithSelectedViewBlock)willDismissWithSelectedViewBlock
-                          didDismissWithSelectedViewBlock:
-                              (didDismissWithSelectedViewBlock)
-                          didDismissWithSelectedViewBlock
-                                didChangeToImageViewBlock:
-                                    (didChangeToImageViewBlock)
-    didChangeToImageViewBlock;
+
+- (id)initWithImageViewerWillDismissWithSelectedViewBlock:(WillDismissWithSelectedViewBlock)willDismissWithSelectedViewBlock
+                          didDismissWithSelectedViewBlock:(DidDismissWithSelectedViewBlock)didDismissWithSelectedViewBlock
+                                didChangeToImageViewBlock:(DidChangeToImageViewBlock)didChangeToImageViewBlock;
+
 @end

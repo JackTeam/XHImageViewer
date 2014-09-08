@@ -12,13 +12,31 @@
 #import "UIImageView+XHURLDownload.h"
 #import "URLStoreManager.h"
 
+#import "XHBottomToolBar.h"
+
 @interface XHViewController () <XHImageViewerDelegate> {
   NSMutableArray *_imageViews;
 }
 
+@property (nonatomic, strong) XHBottomToolBar *bottomToolBar;
+
 @end
 
 @implementation XHViewController
+
+- (void)likeButtonClciked:(UIButton *)sender {
+    
+}
+
+- (XHBottomToolBar *)bottomToolBar {
+    if (!_bottomToolBar) {
+        _bottomToolBar = [[XHBottomToolBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
+        [_bottomToolBar.likeButton addTarget:self action:@selector(likeButtonClciked:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _bottomToolBar;
+}
+
+#pragma mark - Life Cycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil {
@@ -94,6 +112,10 @@
 }
 
 #pragma mark - XHImageViewerDelegate
+
+- (UIView *)customBottomToolBarOfImageViewer:(XHImageViewer *)imageViewer {
+    return self.bottomToolBar;
+}
 
 - (void)imageViewer:(XHImageViewer *)imageViewer
     willDismissWithSelectedView:(UIImageView *)selectedView {
