@@ -32,7 +32,7 @@ multiple api to use：
 
 ## Profile
 
-[CocosPods](http://cocosPods.org) is the recommended methods of installation XHPathCover, just add the following line to `Profile`:
+[CocosPods](http://cocosPods.org) is the recommended methods of installation XHImageViewer, just add the following line to `Profile`:
 
 ```
 pod 'XHImageViewer'
