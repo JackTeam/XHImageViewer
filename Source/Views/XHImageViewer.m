@@ -10,6 +10,7 @@
 #import "XHImageViewer.h"
 #import "XHViewState.h"
 #import "XHZoomingImageView.h"
+#import "UIImageView+XHURLDownload.h"
 
 #define kXHImageViewerBaseTopToolBarTag 100
 #define kXHImageViewerBaseBottomToolBarTag 200
@@ -42,6 +43,10 @@
         }
     }
     _imgViews = [imgViews copy];
+}
+
+- (UIImage *)currentImage {
+    return [self currentView].image;
 }
 
 - (void)showWithImageViews:(NSArray *)views
@@ -105,7 +110,7 @@
 }
 
 - (NSInteger)pageIndex {
-    return (_scrollView.contentOffset.x / _scrollView.frame.size.width + 0.5);
+    return (_scrollView.contentOffset.x / _scrollView.frame.size.width);
 }
 
 #pragma mark - Getter Method
@@ -213,6 +218,12 @@
                          for (UIImageView *view in _imgViews) {
                              view.transform = CGAffineTransformIdentity;
                              
+                             if ([view respondsToSelector:@selector(largePhotoURLString)]) {
+                                 UIImageView <XHImageURLDataSource> *dataSource = (UIImageView <XHImageURLDataSource> *)view;
+                                 
+                                 [view loadWithURL:[NSURL URLWithString:[dataSource largePhotoURLString]]];
+                             }
+                             
                              CGSize size = (view.image) ? view.image.size : view.frame.size;
                              CGFloat ratio = MIN(fullW / size.width, fullH / size.height);
                              CGFloat W = ratio * size.width;
@@ -311,6 +322,10 @@
                              [state.superview addSubview:currentView];
                              
                              for (UIView *view in _imgViews) {
+                                 if ([view respondsToSelector:@selector(largePhotoURLString)]) {
+                                     UIImageView <XHImageURLDataSource> *dataSource = (UIImageView <XHImageURLDataSource> *)view;
+                                     [((UIImageView *)view) loadWithURL:[NSURL URLWithString:[dataSource thnumbnailPhotoURLString]]];
+                                 }
                                  XHViewState *_state = [XHViewState viewStateForView:view];
                                  view.userInteractionEnabled = _state.userInteratctionEnabled;
                              }

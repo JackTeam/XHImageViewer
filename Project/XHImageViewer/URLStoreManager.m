@@ -15,16 +15,12 @@
     NSURL *url = nil;
     switch (index) {
         case 0:
+        case 2:
             url = [NSURL URLWithString:@"http://www.pailixiu.com/jack/1969908.jpg"];
             break;
         case 1:
-            url = [NSURL URLWithString:@"http://www.pailixiu.com/jack/1969908.jpg"];
-            break;
-        case 2:
-            url = [NSURL URLWithString:@"http://pic6.nipic.com/20100423/4782353_093056703685_2.jpg"];
-            break;
         case 3:
-            url = [NSURL URLWithString:@"http://www.pailixiu.com/jack/1969908.jpg"];
+            url = [NSURL URLWithString:@"http://pic6.nipic.com/20100423/4782353_093056703685_2.jpg"];
             break;
         default:
             break;

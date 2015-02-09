@@ -24,6 +24,25 @@
     return _likeButton;
 }
 
+- (UIButton *)unLikeButton {
+    if (!_unLikeButton) {
+        _unLikeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _unLikeButton.frame = CGRectMake(120, 0, 80, CGRectGetHeight(self.bounds));
+        [self addSubview:_unLikeButton];
+    }
+    return _unLikeButton;
+}
+
+- (UIButton *)shareButton {
+    if (!_shareButton) {
+        _shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_shareButton setTitle:@"收藏" forState:UIControlStateNormal];
+        _shareButton.frame = CGRectMake(CGRectGetWidth(self.bounds) - 90, 0, 80, CGRectGetHeight(self.bounds));
+        [self addSubview:_shareButton];
+    }
+    return _shareButton;
+}
+
 #pragma mark - Life Cycle
 
 - (id)initWithFrame:(CGRect)frame

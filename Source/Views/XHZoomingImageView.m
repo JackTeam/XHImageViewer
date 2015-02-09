@@ -95,7 +95,9 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if(object == self.imageView) {
-        [self imageDidChange];
+        if (self.imageView.superview == _containerView) {
+            [self imageDidChange];
+        }
     }
 }
 

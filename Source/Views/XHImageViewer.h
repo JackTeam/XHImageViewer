@@ -8,6 +8,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XHImageURLDataSource.h"
 
 @class XHImageViewer;
 
@@ -33,11 +34,13 @@ typedef void (^DidChangeToImageViewBlock)(XHImageViewer *imageViewer, UIImageVie
 
 @interface XHImageViewer : UIView
 
-@property(nonatomic, weak) id<XHImageViewerDelegate> delegate;
+@property (nonatomic, weak) id<XHImageViewerDelegate> delegate;
 
-@property(nonatomic, assign) CGFloat backgroundScale;
+@property (nonatomic, assign) CGFloat backgroundScale;
 
-@property(nonatomic, assign) BOOL disableTouchDismiss;
+@property (nonatomic, assign) BOOL disableTouchDismiss;
+
+- (UIImage *)currentImage;
 
 - (void)showWithImageViews:(NSArray *)views
               selectedView:(UIImageView *)selectedView;
