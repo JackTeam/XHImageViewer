@@ -76,7 +76,7 @@
                          placeholer:[UIImage imageNamed:@"placeholder.jpeg"]
           showActivityIndicatorView:YES];
     } else {
-      imageView.image = [UIImage imageNamed:@"screenshot.png"];
+      imageView.image = [UIImage imageNamed:@"1_1280x800-1.jpeg"];
     }
 
     [self.view addSubview:imageView];
