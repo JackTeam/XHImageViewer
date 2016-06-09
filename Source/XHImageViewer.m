@@ -18,6 +18,8 @@
 
 @property(nonatomic, strong) UIScrollView *scrollView;
 @property(nonatomic, strong) NSArray *imgViews;
+@property(nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
+
 
 @property(nonatomic, copy) WillDismissWithSelectedViewBlock willDismissWithSelectedViewBlock;
 @property(nonatomic, copy) DidDismissWithSelectedViewBlock didDismissWithSelectedViewBlock;
@@ -62,18 +64,13 @@
 - (void)_setup {
     self.backgroundColor = [UIColor colorWithWhite:0.1 alpha:1];
     self.backgroundScale = 0.95;
-    
-    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGestureRecognizer:)];
-    panGestureRecognizer.maximumNumberOfTouches = 1;
-    [self addGestureRecognizer:panGestureRecognizer];
+    _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGestureRecognizer:)];
+    _panGestureRecognizer.maximumNumberOfTouches = 1;
+    [self addGestureRecognizer:_panGestureRecognizer];
 }
 
 - (id)init {
-    self = [self initWithFrame:CGRectZero];
-    if (self) {
-        [self _setup];
-    }
-    return self;
+    return [self initWithFrame:CGRectZero];
 }
 
 - (id)initWithImageViewerWillDismissWithSelectedViewBlock:(WillDismissWithSelectedViewBlock)willDismissWithSelectedViewBlock
@@ -185,6 +182,7 @@
     [window convertRect:selectedView.frame fromView:selectedView.superview];
     [window addSubview:selectedView];
     
+    _panGestureRecognizer.enabled = NO;
     [UIView animateWithDuration:0.3
                      animations:^{
                          _scrollView.alpha = 1;
@@ -202,6 +200,7 @@
                          CGRectMake((fullW - W) / 2, (fullH - H) / 2, W, H);
                      }
                      completion:^(BOOL finished) {
+                        _panGestureRecognizer.enabled = YES;
                          _scrollView.contentSize = CGSizeMake(_imgViews.count * fullW, 0);
                          _scrollView.contentOffset = CGPointMake(currentPage * fullW, 0);
                          
